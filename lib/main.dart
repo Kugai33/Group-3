@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:yanbaru_hackathon/login/login_page.dart';
 import 'firebase_options.dart';
 // ignore: unused_import
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,7 +14,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(MaterialApp(home: LoginPage (),));
 }
 
 class MyApp extends StatelessWidget {

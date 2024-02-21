@@ -11,59 +11,74 @@ class RegisterPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('新規登録'),
+          backgroundColor: Colors.blue,
         ),
         body: Center(
           child: Consumer<RegisterModel>(builder: (context, model, child) {
             return Stack(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                   child: Column(
                     children: [
-                      TextField(
-                        controller: model.titleController,
-                        decoration: InputDecoration(
-                          hintText: 'Email',
+                      Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: Column(
+                          children: [
+                            TextField(
+                              controller: model.titleController,
+                              decoration: InputDecoration(
+                                labelText: 'Email',
+                              ),
+                              onChanged: (text) {
+                                model.setEmail(text);
+                              },
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 30),
+                              child: Column(
+                                children: [
+                                  TextField(
+                                    controller: model.authorController,
+                                    decoration: InputDecoration(
+                                      labelText: 'パスワード',
+                                    ),
+                                    onChanged: (text) {
+                                      model.setPassword(text);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 16,
+                            ),
+                            ElevatedButton(
+                              onPressed: () async {
+                                model.startLoading();
+                        
+                                // 追加の処理
+                                try {
+                                  await model.signUp();
+                                  Navigator.of(context).pop();
+                                } catch (e) {
+                                  final snackBar = SnackBar(
+                                    backgroundColor: Colors.red,
+                                    content: Text(e.toString()),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                } finally {
+                                  model.endLoading();
+                                }
+                              },
+                              child: Text('登録する'),
+                            ),
+                          ],
                         ),
-                        onChanged: (text) {
-                          model.setEmail(text);
-                        },
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      TextField(
-                        controller: model.authorController,
-                        decoration: InputDecoration(
-                          hintText: 'パスワード',
-                        ),
-                        onChanged: (text) {
-                          model.setPassword(text);
-                        },
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      ElevatedButton(
-                        onPressed: () async {
-                          model.startLoading();
-
-                          // 追加の処理
-                          try {
-                            await model.signUp();
-                            Navigator.of(context).pop();
-                          } catch (e) {
-                            final snackBar = SnackBar(
-                              backgroundColor: Colors.red,
-                              content: Text(e.toString()),
-                            );
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                          } finally {
-                            model.endLoading();
-                          }
-                        },
-                        child: Text('登録する'),
                       ),
                     ],
                   ),
