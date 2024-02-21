@@ -69,7 +69,7 @@ class LoginPage extends StatelessWidget {
                                   await model.login();
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
-                                      builder: (context) => , // 遷移先のページを指定します
+                                      builder: (context) =>  , // 遷移先のページを指定します
                                     ),
                                   );
                                 } catch (e) {
