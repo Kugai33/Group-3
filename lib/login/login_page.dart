@@ -67,7 +67,11 @@ class LoginPage extends StatelessWidget {
                                 // 追加の処理
                                 try {
                                   await model.login();
-                                 
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (context) =>(), // 画面遷移したい！！！HOMEに！！
+                                    ),
+                                  );
                                 } catch (e) {
                                   final snackBar = SnackBar(
                                     backgroundColor: Colors.red,
